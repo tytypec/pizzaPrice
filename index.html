@@ -1,0 +1,134 @@
+<!CODETYPE html>
+
+<html>
+	<head>
+		<title>Pizza</title>
+		<style>
+			.mainContainer{
+			display: flex;
+			border-style: solid;
+			flex-direction: column;
+			height: 100%;
+			width: 80%;
+				}
+			
+			.title{
+			margin-top: 20px;	
+			margin-bottom: 20px;
+			}
+			
+			.pizzaSizeAndPricesContainer{
+			display: flex;
+			border-style: solid;
+			flex-direction: row;
+			height: 300px;
+				}
+			
+			#smallPizza{
+				border-radius: 100%;
+				background: yellow;
+				}
+			#individualSizeContainer{
+			display: flex
+			flex-direction: column;
+			line-height: 40px;
+				}
+				
+			button {
+            width: 175px;
+            height: 175px;
+			}
+		</style>
+	</head>
+	
+	<body>
+		<div class="mainContainer">
+			<div class="title">
+			Pizza Price Calculator
+			</div>
+			<div class="pizzaSizeAndPricesContainer">
+				<div id="individualSizeContainer">
+					<div id="smallPizzaIcon"> </div>
+					<label for="smallPizzaSize">small pizza size:</label>
+					<input type="text" id="smallPizzaSize" name="Small pizza diameter">
+					<label for="smallPizzaPrice">small pizza price:</label>
+					<input type="number" id="smallPizzaPrice" name="Small pizza price">
+				</div>
+				
+				<div id="individualSizeContainer">
+					<label for="mediumPizzaSize">medium pizza size:</label>
+					<input type="text" id="mediumPizzaSize" name="medium pizza diameter">
+					<label for="mediumPizzaPrice">medium pizza price:</label>
+					<input type="number" id="mediumPizzaPrice" name="medium pizza price">
+				</div>
+				
+				<div id="individualSizeContainer">
+					<label for="largePizzaSize">large pizza size:</label>
+					<input type="text" id="largePizzaSize" name="large pizza diameter">
+					<label for="largePizzaPrice">large pizza price:</label>
+					<input type="number" id="largePizzaPrice" name="large pizza price">
+				</div>
+			</div>
+			
+			<button onclick="defineVariablesFromUserInputs()">calculate</button>
+			<div id="unitPriceOfSmallPizza">
+			price
+			</div>
+		</div>
+	</body>
+	
+		<script>
+		//let smallPizzaSize = document.getElementById("smallPizzaSize").value;
+		//let smallPizzaPrice = document.getElementById("smallPizzaPrice").value;
+		
+		function defineVariablesFromUserInputs() {
+			var smallPizzaSize = document.getElementById("smallPizzaSize").value;
+			var smallPizzaPrice = document.getElementById("smallPizzaPrice").value;
+			var mediumPizzaSize = document.getElementById("mediumPizzaSize").value;
+			var mediumPizzaPrice = document.getElementById("mediumPizzaPrice").value;
+			var largePizzaSize = document.getElementById("largePizzaSize").value;
+			var largePizzaPrice = document.getElementById("largePizzaPrice").value;
+			
+			resetOnButtonClick();
+			
+			console.log("size", smallPizzaSize);
+			console.log("price", smallPizzaPrice);
+			
+			calculateUnitPrice(smallPizzaSize,smallPizzaPrice,"small ");
+			calculateUnitPrice(mediumPizzaSize,mediumPizzaPrice,"medium ");
+			calculateUnitPrice(largePizzaSize,largePizzaPrice,"large ");
+			//createPizzaIcons(smallPizzaSize);
+			}
+			
+			function resetOnButtonClick(){
+				const element = document.getElementById("unitPriceOfSmallPizza");
+				element.innerHTML ="";
+				}
+				
+		function calculateUnitPrice(inches,price,size){
+			piTimesRadius = (3.14*(inches / 2));
+			smallArea = (piTimesRadius * piTimesRadius);
+			unitPrice = (price / smallArea);
+			roundedUnitPrice = Math.round(unitPrice * 100) / 100
+			console.log(unitPrice);
+			const element = document.getElementById("unitPriceOfSmallPizza");
+            element.innerHTML += size + "pizza price per square inch: $" + roundedUnitPrice + " <br>";
+			}
+			
+
+			
+		/*function createPizzaIcons(size){
+			const content = document.getElementById("smallPizzaIcon");
+			const element = document.createElement('<div>');
+			content.classList.add('id="smallPizza" style="width:50px; height:50px;"');
+			
+			}
+			/*piTimesRadius = (3.14*(smallPizzaSize / 2));
+			smallArea = (piTimesRadius * piTimesRadius);
+			unitPrice = (smallPizzaPrice / smallArea);
+			console.log(unitPrice);
+			const element = document.getElementById("unitPriceOfSmallPizza");
+            element.innerHTML = "small pizza price per square inch: " + unitPrice;*/
+			//					<div id="smallPizza" style="width:50px; height:50px;"></div>
+		</script>
+</html>
