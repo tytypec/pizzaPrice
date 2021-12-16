@@ -4,32 +4,55 @@
 	<head>
 		<title>Pizza</title>
 		<style>
+			body{
+				display: flex;
+				justify-content: center;
+				background-color: gray;
+
+				}
+		
 			.mainContainer{
 			display: flex;
 			border-style: solid;
+			border-color: gray;
 			flex-direction: column;
 			height: 100%;
 			width: 80%;
+			background-color: lightgray;
 				}
 			
 			.title{
-			margin-top: 20px;	
-			margin-bottom: 20px;
+			text-align: center;
+			margin-top: 10px;
+			margin-bottom: 0px;
+			font-size: 30;
+			font-weight: 650;
 			}
+			
+			.about{
+				margin-right: 80px;
+				margin-left: 80px;
+				font-size: 12;
+				font-weight: 250;
+				line-height: 2;
+				}
 			
 			.pizzaSizeAndPricesContainer{
 			display: flex;
-			border-style: solid;
 			flex-direction: row;
-			height: 300px;
+			height: 280px;
+			justify-content: space-around;
+			align-items: center;
+			font-size: 18;
 				}
 			
 			#smallPizza{
 				border-radius: 100%;
 				background: yellow;
 				}
+				
 			#individualSizeContainer{
-			display: flex
+			display: flex;
 			flex-direction: column;
 			line-height: 40px;
 				}
@@ -37,42 +60,67 @@
 			button {
             width: 175px;
             height: 175px;
-			}
+				}
+			
+			#unitPriceOfAllPizza{
+				font-size: 20;
+				font-weight: 550;
+				line-height: 40px;
+				}
+			.buttonAndPricePerContainer{
+				display: flex;
+				align-items: center;
+				justify-content: space-evenly;
+				margin-top: 20px;
+				}
+				
 		</style>
 	</head>
 	
 	<body>
 		<div class="mainContainer">
 			<div class="title">
-			Pizza Price Calculator
+			<h1>Pizza Price Calculator</h1>
 			</div>
-			<div class="pizzaSizeAndPricesContainer">
-				<div id="individualSizeContainer">
-					<div id="smallPizzaIcon"> </div>
-					<label for="smallPizzaSize">small pizza size:</label>
-					<input type="text" id="smallPizzaSize" name="Small pizza diameter">
-					<label for="smallPizzaPrice">small pizza price:</label>
-					<input type="number" id="smallPizzaPrice" name="Small pizza price">
-				</div>
-				
-				<div id="individualSizeContainer">
-					<label for="mediumPizzaSize">medium pizza size:</label>
-					<input type="text" id="mediumPizzaSize" name="medium pizza diameter">
-					<label for="mediumPizzaPrice">medium pizza price:</label>
-					<input type="number" id="mediumPizzaPrice" name="medium pizza price">
-				</div>
-				
-				<div id="individualSizeContainer">
-					<label for="largePizzaSize">large pizza size:</label>
-					<input type="text" id="largePizzaSize" name="large pizza diameter">
-					<label for="largePizzaPrice">large pizza price:</label>
-					<input type="number" id="largePizzaPrice" name="large pizza price">
-				</div>
+			<div class="about">
+				<h2>This simple tool will generate the unit price per square inch of pizza. To use simply input the size of the pizza and price then click 'calculate.'
+				if your favorite pizza place does not have 4 sizes please leave that size blank.</h2>
 			</div>
 			
-			<button onclick="defineVariablesFromUserInputs()">calculate</button>
-			<div id="unitPriceOfSmallPizza">
-			price
+			<div class="pizzaSizeAndPricesContainer">
+				<div id="individualSizeContainer">
+					<div id="smallPizzaIcon"></div>
+					<label for="smallPizzaSize">Small pizza size: <br></label>
+					<input type="number" id="smallPizzaSize" placeholder="Diameter in inches" name="Small pizza diameter">
+					<label for="smallPizzaPrice">Small pizza price: <br></label>
+					<input type="number" id="smallPizzaPrice" placeholder="Price in USD" name="Small pizza price">
+				</div>
+				
+				<div id="individualSizeContainer">
+					<label for="mediumPizzaSize">Medium pizza size: <br></label>
+					<input type="number" id="mediumPizzaSize" placeholder="Diameter in inches" name="medium pizza diameter">
+					<label for="mediumPizzaPrice">Medium pizza price: <br></label>
+					<input type="number" id="mediumPizzaPrice" placeholder="Price in USD" name="medium pizza price">
+				</div>
+				
+				<div id="individualSizeContainer">
+					<label for="largePizzaSize">Large pizza size: <br></label>
+					<input type="number" id="largePizzaSize" placeholder="Diameter in inches" name="large pizza diameter">
+					<label for="largePizzaPrice">Large pizza price: <br></label>
+					<input type="number" id="largePizzaPrice" placeholder="Price in USD" name="large pizza price">
+				</div>
+				
+				<div id="individualSizeContainer">
+					<label for="extraLargePizzaSize">Extra large pizza size: <br></label>
+					<input type="number" id="extraLargePizzaSize" placeholder="Diameter in inches" name="large pizza diameter">
+					<label for="extraLargePizzaPrice">Extra large pizza price: <br></label>
+					<input type="number" id="extraLargePizzaPrice" placeholder="Price in USD" name="large pizza price">
+				</div>
+				
+			</div>
+			<div class="buttonAndPricePerContainer">
+				<button onclick="defineVariablesFromUserInputs()">Calculate</button>
+				<div id="unitPriceOfAllPizza"> Enter your pizza size and price then click 'Calculate' </div>
 			</div>
 		</div>
 	</body>
@@ -87,48 +135,40 @@
 			var mediumPizzaSize = document.getElementById("mediumPizzaSize").value;
 			var mediumPizzaPrice = document.getElementById("mediumPizzaPrice").value;
 			var largePizzaSize = document.getElementById("largePizzaSize").value;
-			var largePizzaPrice = document.getElementById("largePizzaPrice").value;
+			var largePizzaPrice = document.getElementById("largePizzaSize").value;
+			var extraLargePizzaSize = document.getElementById("extraLargePizzaSize").value;
+			var extraLargePizzaPrice = document.getElementById("extraLargePizzaPrice").value;
 			
 			resetOnButtonClick();
 			
-			console.log("size", smallPizzaSize);
-			console.log("price", smallPizzaPrice);
+			calculateUnitPrice(smallPizzaSize,smallPizzaPrice,"Small ");
+			calculateUnitPrice(mediumPizzaSize,mediumPizzaPrice,"Medium ");
+			calculateUnitPrice(largePizzaSize,largePizzaPrice,"Large ");
+			calculateUnitPrice(extraLargePizzaSize,extraLargePizzaPrice,"Extra large ");
 			
-			calculateUnitPrice(smallPizzaSize,smallPizzaPrice,"small ");
-			calculateUnitPrice(mediumPizzaSize,mediumPizzaPrice,"medium ");
-			calculateUnitPrice(largePizzaSize,largePizzaPrice,"large ");
-			//createPizzaIcons(smallPizzaSize);
+			//createPizzaIcons(); Plan was to create yellow circles with diameters from entered sizes.
 			}
 			
 			function resetOnButtonClick(){
-				const element = document.getElementById("unitPriceOfSmallPizza");
+				const element = document.getElementById("unitPriceOfAllPizza");
 				element.innerHTML ="";
 				}
 				
 		function calculateUnitPrice(inches,price,size){
-			piTimesRadius = (3.14*(inches / 2));
-			smallArea = (piTimesRadius * piTimesRadius);
-			unitPrice = (price / smallArea);
-			roundedUnitPrice = Math.round(unitPrice * 100) / 100
+			if(inches < 1 || price < 1 ){
+				return;
+				}
+			else {
+			
+			piTimesRadius = (3.14159*(inches / 2));
+			area = (piTimesRadius * piTimesRadius);
+			unitPrice = (price / area);
+			roundedUnitPrice = Math.round(unitPrice * 1000) / 1000
 			console.log(unitPrice);
-			const element = document.getElementById("unitPriceOfSmallPizza");
+			const element = document.getElementById("unitPriceOfAllPizza");
             element.innerHTML += size + "pizza price per square inch: $" + roundedUnitPrice + " <br>";
 			}
-			
-
-			
-		/*function createPizzaIcons(size){
-			const content = document.getElementById("smallPizzaIcon");
-			const element = document.createElement('<div>');
-			content.classList.add('id="smallPizza" style="width:50px; height:50px;"');
-			
 			}
-			/*piTimesRadius = (3.14*(smallPizzaSize / 2));
-			smallArea = (piTimesRadius * piTimesRadius);
-			unitPrice = (smallPizzaPrice / smallArea);
-			console.log(unitPrice);
-			const element = document.getElementById("unitPriceOfSmallPizza");
-            element.innerHTML = "small pizza price per square inch: " + unitPrice;*/
-			//					<div id="smallPizza" style="width:50px; height:50px;"></div>
+			
 		</script>
 </html>
